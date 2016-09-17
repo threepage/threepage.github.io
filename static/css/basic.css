@@ -1,0 +1,39 @@
+a{color:#34538b;text-decoration: none;}
+a:visted, a:link, a:active{color:#1a8bc8;}
+body{margin:0;font-size:14px;font:caption;}
+ul{margin:0;padding:0;list-style-type:none;}
+
+.headerimg{height: 49px;}
+.headerimg a{display: inline-block;line-height: 40px;padding-left: 20px;font-size:20px;}
+.menubar{height:40px;line-height: 40px;}
+.menubar li{float:left;padding:0 10px;}
+
+.container{position: relative;}
+.content{padding-left:300px;}
+.article{border:1px solid #ebebe7;padding:5px;margin:10px 5px;border-radius: 5px;}
+.dayTitle img{width:40px;vertical-align: middle;}
+.postSum{line-height: 18px;}
+.postTitle2{font-size:24px;}
+.postTitle{margin:5px 0;}
+.postDesc{text-align: right;font-size: 12px;color:#777;line-height: 16px;}
+
+.leftcontent{position: absolute;top:0;left:5px;width:260px;font-size:12px;border:2px solid #d3e0f2;padding:5px;}
+.personInfo{line-height: 18px;}
+.personimg{width:80px;}
+.personInfo p{margin:5px 0;}
+
+.footer{text-align:center;border-top:1px solid #e5e5eb;padding:10px 0;line-height: 1.5;font-size:12px;}
+
+.link_title{margin:10px 0;border-left: 4px solid #d3e0f2;padding-left: 5px;line-height: 18px;color:#666;}
+.link_list a{display: inline-block;width:180px;line-height: 20px;}
+.item{padding:5px;margin:10px 5px;}
+
+@media screen and (max-width: 640px) and (min-width:1px){
+	.content{
+		padding-left:0;
+	}
+	.leftcontent{
+		position: static;
+		width:98%;
+	}
+}
