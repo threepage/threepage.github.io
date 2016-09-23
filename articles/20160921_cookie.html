@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name='description' content="明全的个人博客_web前端技术文章">
+<meta name='keywords' content="明全,HTML5,CSS3,jQuery,cookie,localstorage">
+	<title>和风细雨的个人网站</title>
+<link rel="stylesheet" type="text/css" href="../static/css/basic.css">
+<link rel='shortcut icon' href='../static/img/favicon.ico'>
+</head>
+<body>
+	<div class='header'>
+		<div class='headerimg'>
+			<a href="/">和风细雨的个人技术博客</a>
+		</div>
+		<div class='menubar'>
+			<ul>
+				<li><a href="../index.html">前端技术</a></li>
+				<li><a href="javascript:void(0)">生活散文</a></li>
+				<li><a href="../CSS3/index.html">CSS3参考</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class='container'>
+		<div class='content'>
+			<h3>cookie与localstorage的比较</h3>
+			<div class='contentInfo'>
+				<p>
+					Cookie是用来存储会话信息的。由于HTTP是无状态的会话，为了保持WEB页面的会话要求，特设计出了这个HTTP状态管理机制。
+				</p>
+				<p>
+					cookie是绑定在特定域名下。当设定一个cookie后，再给创建它的域名发送请求时都会自动包含这个cookie。每个域的cookie是有限制的，对于高于IE8的浏览器，我们可以认为这个上限是50个。若cookie数量超出上限，浏览器会清除以前设置的cookie。cookie的大小也是有限制的，4096±1B。
+				</p>
+				<p>
+					cookie的构成。<br>
+					名称：唯一确定cookie的名称，必须经过URL编码。<br>
+					值：存储在cookie中的字符串值，必须经过URL编码。<br>
+					域：cookie都是绑定在特定域名下的，所有向该域发送的请求中都会包含这个cookie信息，默认是设置cookie的域名。<br>
+					路径：指定域中的路径，进一步的访问限制。失效时间：cookie何时被删除的时间戳，默认是在会话结束后将所有cookie删除，不过也可以设置删除时间，这个时间是GMT格式（大概长这样2016-10-20T14:06:37.496Z），由于并没有删除已有cookie的直接方法，需要使用相同的路径、域、安全选项和作为过去时间的失效时间来达到删除目的。<br>
+					安全标志：secure，指定后cookie只有在使用SSL连接的时候（https://）才能发送到服务器。<br>
+					Set-Cookie:name=value; domain=.wrox.com; path=/; secure
+				</p>
+				<p>
+					document.cookie可以返回当前页面可用的所有cookie的字符串，如下（只有名值对）:<br>
+					name1=value1;name2=value2;name3=value3;name4=value4<br>
+					名值对都经过URL编码，所以必须使用decodeURIComponent()来解码<br>
+					document.cookie=encodeURIComponent("name") + "=" + encodeURIComponent("value") + "; domain=.wrox.com; path=/; secure"<br>
+				</p>
+				<p>
+					localstorage是Web Storage的一个实现，本地存储数据，也有大小限制，2.5M~5M。接口实现较好，主要包括：setItem() getItem() removeItem()。<br>
+					但我们不能给localStorage指定任何访问规则，规则事先就由浏览器指定好了：要访问一个localstorage对象，页面必须来自同一个域名（子域名无效），使用同一种协议，在同一个端口上
+				</p>
+				<p>
+				以前有个人问我不考虑兼容性问题，使用cookie有什么优点。现在看来优点不过于一下几点：<br>
+				(1) 在HTTP头部自动发送，而localstorage还需要收到编码到url中。但这是不是优点还不好说，因为用cookie每次请求都会把所有项发送到服务器，相比localstorage只发送想发的，浪费带宽。<br>
+				(2)cookie域名访问设置较简单，而localstorage跨域名问题却被设置死了。如item.jd.com下设置的localstorage,在www.jd.com下无法读取。但这也不是不可以变通的，比如在www.jd.com的js中，加上document.domain = "jd.com"即可<br>
+				(3)path或者secure。
+				</p>
+			</div>
+		</div>
+		<div class='leftcontent'>
+			<img class='personimg' src="../static/img/fav.png">
+			<div class='personInfo'>
+				<p>他不应以虚度年华而悔恨，也不会以碌碌无为而羞耻。他要玩的痛快，他要学的充实。</p>
+				<p>邮箱：star19921991@163.com</p>
+			</div>
+		</div>
+	</div>
+	<div class='footer'>Copyright© 2015-2016 和风细雨</div>
+</body>
+</html>
