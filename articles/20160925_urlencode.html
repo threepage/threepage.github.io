@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name='description' content="明全的个人博客_web前端技术文章">
+<meta name='keywords' content="明全,HTML5,CSS3,escape,encodeuri,encodeuricomponent">
+	<title>和风细雨的个人网站</title>
+<link rel="stylesheet" type="text/css" href="../static/css/basic.css">
+<link rel='shortcut icon' href='../static/img/favicon.ico'>
+</head>
+<body>
+	<div class='header'>
+		<div class='headerimg'>
+			<a href="/">和风细雨的个人技术博客</a>
+		</div>
+		<div class='menubar'>
+			<ul>
+				<li><a href="../index.html">前端技术</a></li>
+				<li><a href="javascript:void(0)">生活散文</a></li>
+				<li><a href="../CSS3/index.html">CSS3参考</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class='container'>
+		<div class='content'>
+			<h3>JS字符编码函数encodeURI、encodeURIComponent的用途</h3>
+			<div class='contentInfo'>
+				<p>
+					JavaScript有三种字符编码函数，分别为escape()、encodeURI()、encodeURIComponent()，作用不尽相同。要了解这三种函数的用途，需要了解URL字符、HTTP请求参数字符的限制。
+				</p>
+				<h5>URL字符限制</h5>
+				<p>
+					URL只能包含英文字母、阿拉伯数字和某些特定的标点符号。在网络标准RFC 1738中规定如下：<br>
+					"...Only alphanumerics [0-9a-zA-Z], the special characters "$-_.+!*'()," [not including the quotes - ed], and reserved characters used for their reserved purposes may be used unencoded within a URL."<br>
+					比如汉字就是不能出现在URL地址中的。这样当我们需要查询汉字，如location.href='www.shenfu.com/search?word=春节',这样写其实是不对的，不过浏览器可以自动帮我们进行编码。但不同浏览器转化不同，谷歌转化为：word=%E6%98%A5%E8%8A%82，word=%B4%BA%BD%DA。可见IE用的是GB2312编码方式加%，谷歌用的是UTF-8方式加%。
+				</p>
+				<h5>HTTP请求中的参数</h5>
+				<p>
+					使用GET或POST方法生产的HTTP请求，这时网页内容及HTTP参数是由<meta charset="utf-8">网页编码决定。HTTP请求中的参数的传输是按照“name1=value1&name2=value2&name3=value3”的形式传递的，而服务器端也是一般按照“&”、“=”来进行分割的，这时若value值中包含&或=，就会产生混乱。需要进行一下编码。
+				</p>
+				<h5>escape()、encodeURI()、encodeURIComponent()的区别</h5>
+				<p>
+					escape()、encodeURI()、encodeURIComponent()分别对应unescape()、decodeURI()、decodeURIComponent()。<br>
+					escape是最古老的编码方式，其把参数编码成在Unicode字符集中的位置，如%u6625：该字符在第6625（16进制）的位置，已经不建议使用了。<br>
+					encodeURI不对“!#$&'()*+-.:;=?@_~0-9a-zA-Z”82个字符进行编码，可见其并不适合对ajax参数的编码。<br>
+					encodeURIComponent不对“!'()*-._~0-9a-zA-Z” 71个字符编码<br>
+				</p>
+			</div>
+		</div>
+		<div class='leftcontent'>
+			<img class='personimg' src="../static/img/fav.png">
+			<div class='personInfo'>
+				<p>他不应以虚度年华而悔恨，也不会以碌碌无为而羞耻。他要玩的痛快，他要学的充实。</p>
+				<p>邮箱：star19921991@163.com</p>
+			</div>
+		</div>
+	</div>
+	<div class='footer'>Copyright© 2015-2016 和风细雨</div>
+</body>
+</html>
