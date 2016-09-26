@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name='description' content="明全的个人博客_web前端技术文章">
+<meta name='keywords' content="明全,HTML5,CSS3,jsonp,cors">
+	<title>和风细雨的个人网站</title>
+<link rel="stylesheet" type="text/css" href="../static/css/basic.css">
+<link rel='shortcut icon' href='../static/img/favicon.ico'>
+</head>
+<body>
+	<div class='header'>
+		<div class='headerimg'>
+			<a href="/">和风细雨的个人技术博客</a>
+		</div>
+		<div class='menubar'>
+			<ul>
+				<li><a href="../index.html">前端技术</a></li>
+				<li><a href="javascript:void(0)">生活散文</a></li>
+				<li><a href="../CSS3/index.html">CSS3参考</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class='container'>
+		<div class='content'>
+			<h3>JSONP与同源策略</h3>
+			<div class='contentInfo'>
+				<p>
+					为了保护用户的信息，浏览器在很早时就推出了同源策略。所谓同源，即协议相同、域名相同、端口相同。而Cookie、LocalStorage的读取、ajax的发送都受到同源策略的影响。
+				</p>
+				<h5>CORS</h5>
+				<p>
+					同源策略可以有效的保护用户信息，维护网络安全，但有时也会妨碍我们正常的网络请求，故出现了一些解决方案。CORS（Cross-Origin Resource Sharing，跨域资源共享）是W3C的一个工作草案，定义了在必须访问跨域资源时，浏览器与服务器应该如何沟通。对于一些简单GET请求，浏览器直接发送CORS请求，并在头信息中增加一个Origin字段，如：Orgin：http://www.bigmq.com。服务器根据该字段值决定是否同意这个请求。若不同意，则回应的头信息中不会包含Access-Control-Allow-Origin字段，浏览器就会知道出错了，会抛出错误，可以被XMLHttpRequest的onerror捕获。
+				</p>
+				<p>
+				IE在IE8时实现了XDR是CORS的一种实现。XDR与XHR类似，但能实现安全可靠地跨域通信。用法类似：<br>
+<pre>var xdr = new XDomainRequest();
+xdr.onload = function(){
+	alert(xdr.responseText);
+}<br>
+xdr.onerror = function(){
+	alert('error');
+}<br>
+xdr.open('get', 'http://www.bigmg.com/page/cdn.cgi');
+xdr.send(null);</pre>
+				</p>
+				<p>
+					而现代浏览器都通过XMLHttpRequest对象实现了对CORS的原生支持。要请求另一个域中的资源，在open方法中传入绝对URL即可。<br>
+<pre>var xhr = createXHR();
+xhr.onreadystatechange = function(){
+	 if(xhr.readyState == 4){
+	  	if(xhr.status >= 200 && xhr.status < 300){
+	  		alert(xhr.responseText);
+	  	}else{
+	  		alert(xhr.status);
+	  	}
+	 }
+}
+xhr.open("get", "http://www.bigmq.com/page/cdn.cgi", true);
+xhr.send(null);</pre>
+				</p>
+				<p>
+					通过跨域XHR对象可以访问status和statusText属性，而XDR不行。二者也有共同点，都不能发送和接收cookie。使用中，尽量本地资源用相对路径，远程资源使用绝对路径访问。
+				</p>
+				<h5>JSONP技术</h5>
+				<p>
+					JSONP是服务器与客户端跨域通信的常用方法，最大的特点就是简单实用，服务器改造小。
+<pre>function addScript(src){
+	var sc = document.createElement('script');
+	sc.setAttribute('type', 'text/javascript');
+	sc.src = src;
+	document.body.appendChild(sc);
+}
+
+function getItem(){
+	addScript('http://www.bigmq.com/cdn?callback=getItemLocal');
+}
+
+function getItemLocal(data){
+	console.log('Your name is:' + data);
+}</pre>
+				</p>
+				<p>CORS域JSONP相比，可以看出CORS更规范、更安全，但比较琐碎，还需要服务端每次设置头信息。JSONP则比较简单实用，兼用性也好。</p>
+			</div>
+		</div>
+		<div class='leftcontent'>
+			<img class='personimg' src="../static/img/fav.png">
+			<div class='personInfo'>
+				<p>他不应以虚度年华而悔恨，也不会以碌碌无为而羞耻。他要玩的痛快，他要学的充实。</p>
+				<p>邮箱：star19921991@163.com</p>
+			</div>
+		</div>
+	</div>
+	<div class='footer'>Copyright© 2015-2016 和风细雨</div>
+</body>
+</html>
